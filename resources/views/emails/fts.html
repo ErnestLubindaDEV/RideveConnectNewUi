@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+@font-face {
+    font-family: 'Brinnan-Light';
+    src: url('/public/fonts/Brinnan-Light.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    body {
+            font-family: 'Brinnan-Light';
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #2ba6db;
+            padding-bottom: 10px;
+        }
+
+        .flex img {
+            max-width: 180px;
+            height: auto;
+        }
+
+        .terms {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-left: 5px solid #2ba6db;
+            font-size: 14px;
+        }
+
+        .terms h2 {
+            margin-top: 0;
+            font-size: 16px;
+            color: #2ba6db;
+        }
+
+        .flex h1 {
+            margin: 0;
+            font-size: 22px;
+            color: #2ba6db;
+            text-align: right;
+        }
+
+        .content {
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .content p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .signature-block {
+            text-align: center;
+            width: 48%;
+        }
+
+        .signature-block img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 40px;
+            border-top: 2px solid #2ba6db;
+            padding-top: 10px;
+        }
+
+        .footer img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 14px;
+            }
+
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 15px;
+                box-shadow: none;
+                border: none;
+                margin: 0;
+            }
+
+            .header img,
+            .footer img {
+                display: none; /* Hides decorative images in print */
+            }
+
+            .signature-block img {
+                border: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Pattern Background -->
+        <div class="header">
+            <img src="/public/assets/BG-02.jpeg" alt="Pattern">
+        </div>
+
+        <!-- Logo & Title -->
+        <div class="flex">
+            <img src="/public/assets/Logos/2.png" alt="Company Logo">
+            <h1>Leave Form</h1>
+        </div>
+
+        <!-- Employee Details -->
+        <div class="content">
+            <!-- <h2 style="text-align: center; color: #333;">Leave Application for {{ $leaveApplication->employee_name }}</h2> -->
+            <p><strong>Employee Name:</strong> {{ $leaveApplication->full_name }}</p>
+            <p><strong>Leave Type:</strong> {{ $leaveApplication->leave_type }}</p>
+            <p><strong>Leave Dates:</strong> From {{ $leaveApplication->leave_from }} to {{ $leaveApplication->leave_to }}</p>
+            <p><strong>Reason for Leave:</strong> {{ $leaveApplication->additional_notes }}</p>
+            <p><strong>Supervisor:</strong> {{ $leaveApplication->supervisor_name }}</p>
+            <p><strong>HR Department:</strong> Lombe Chileshe (Human Resource Manager)</p>
+        </div>
+
+        <!-- Signatures Section -->
+        <div class="signature-section">
+            <div class="signature-block">
+                <p>Approved by Supervisor: {{ $leaveApplication->supervisor_signature ? 'Yes' : 'No' }}</p>
+                <img src="{{ $leaveApplication->supervisor_signature }}" alt="Supervisor Signature">
+                <p>Supervisor Signature</p>
+            </div>
+            <div class="signature-block">
+                <p>Approved by HR: {{ $leaveApplication->hr_signature ? 'Yes' : 'No' }}</p>
+                <img src="{{ $leaveApplication->hr_signature }}" alt="HR Signature">
+                <p>HR Signature</p>
+            </div>
+        </div>
+
+        <div class="terms">
+            <h2>Terms & Conditions</h2>
+            <p>2. Leave approval is subject to company policies and management discretion.</p>
+            <p>3. Employees must ensure that all pending tasks and responsibilities are handed over before proceeding on leave.</p>
+            <p>4. Unauthorized leave may lead to disciplinary action.</p>
+            <p>5. Any changes to approved leave dates must be communicated to HR in writing.</p>
+            <p>6. In case of sick leave, a medical certificate may be required for approval.</p>
+            <p>7. The company reserves the right to recall an employee in case of an emergency.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>For further assistance, please contact the HR Department.</p>
+            <img src="/public/assets/BG-02.jpeg" alt="Pattern">
+        </div>
+    </div>
+</body>
+</html>
