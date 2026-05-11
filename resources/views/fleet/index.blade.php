@@ -1,4 +1,4 @@
-@extends('partials.layouts.master')
+@extends('partials.Layouts.master')
 
 @section('title', 'Rideve Connect - Fleet Management')
 
@@ -410,7 +410,7 @@
                                   <button type="button" 
                                             class="btn btn-sm btn-outline-info d-inline-flex align-items-center" 
                                             data-bs-toggle="modal" 
-                                            data-bs-target="#editComplianceModal{{ $vehicle->id }}"
+                                            data-bs-target="#editComplianceModal{{ $item->vehicle_id }}"
                                             title="Edit Compliance">
                                         <i class="fas fa-shield-alt me-1"></i>
                                         <span class="small">Edit</span>

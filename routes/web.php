@@ -44,11 +44,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/Administration', [HRMController::class, 'index'])->name('HRM');
     Route::get('/Administration/add-employee', [HRMController::class, 'AddEmployee'])->name('AddEmployee');
-    Route::get('/Administration/apply-for-leave/{employee_id}', [HRMController::class, 'Applyforleave'])->name('applyforleave');
+    Route::get('/Administration/apply-for-leave', [HRMController::class, 'Applyforleave'])->name('applyforleave');
     Route::post('/Administration/submitLeaveApplication', [HRMController::class, 'submitLeaveApplication'])->name('submitLeaveApplication');
 
     // Leave Applications Routes
-    Route::get('/leave-applications/{employee_id}', [HRMController::class, 'leave_index'])->name('leave.index');
+    Route::get('/leave-applications', [HRMController::class, 'leave_index'])->name('leave.index');
     Route::get('/leave-applications/supervisor', [HRMController::class, 'supervisorView'])->name('leave-applications.supervisor');
     Route::get('/leave-applications/hr', [HRMController::class, 'hrView'])->name('leave-applications.hr');
     Route::get('/leave/details/{id}', [HRMController::class, 'view_leave'])->name('leave.details');

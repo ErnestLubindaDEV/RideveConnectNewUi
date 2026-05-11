@@ -271,11 +271,16 @@ $validated['driver_license'] = $driverLicensePath;
 }
         
 
-    public function Applyforleave($employeeId)
-    {
-        $employee = HRM::find($employeeId); 
-        return view('HRM.Applyforleave', compact('employee'));
+   public function Applyforleave() 
+{
+    $employee = HRM::where('user_id', Auth::id())->first();
+
+    if (!$employee) {
+        return redirect()->back()->with('error', 'Employee record not found.');
     }
+
+    return view('HRM.Applyforleave', compact('employee'));
+}
 
     public function AddAsset()
     {
@@ -719,23 +724,23 @@ public function submitLeaveApplication(Request $request)
     }
 }
 
-public function leave_index($employee_id)
+public function leave_index() // Removed the $employee_id parameter
 {
-    $employee = HRM::where('employee_id', $employee_id)->first();
+    // Fetch the employee record linked to the logged-in user
+    $employee = HRM::where('user_id', Auth::id())->first();
 
     if (!$employee) {
-        abort(404, 'Employee not found.');
+        return redirect()->route('dashboard')->with('error', 'Employee record not found.');
     }
 
-    // Exclude rejected & completed everywhere
     $excludedStatuses = ['Rejected', 'Completed'];
 
-    // Admin & HR: see all except rejected & completed
-    if ($employee->position === 'admin' || $employee->position === 'HR') {
+    // 1. Admin & HR Logic
+    if (in_array($employee->position, ['admin', 'HR'])) {
         $leaveApplications = LeaveApplication::whereNotIn('status', $excludedStatuses)->get();
     }
 
-    // Supervisors: see department employees except rejected & completed
+    // 2. Supervisor Logic
     elseif ($employee->position === 'Supervisor') {
         $leaveApplications = LeaveApplication::whereNotIn('status', $excludedStatuses)
             ->where(function ($query) use ($employee) {
@@ -745,21 +750,15 @@ public function leave_index($employee_id)
             ->get();
     }
 
-    // Employees: see only their own except rejected & completed
-    elseif ($employee->employee_id == $employee_id) {
+    // 3. General Employee Logic
+    else {
         $leaveApplications = LeaveApplication::where('full_name', $employee->full_name)
             ->whereNotIn('status', $excludedStatuses)
             ->get();
     }
 
-    else {
-        abort(403, 'Unauthorized action.');
-    }
-
     return view('HRM.manage_leave_applications', compact('leaveApplications'));
 }
-
-
 
 public function view_leave($id)
 {

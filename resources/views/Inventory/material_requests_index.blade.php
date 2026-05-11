@@ -1,4 +1,4 @@
-@extends('partials.layouts.master')
+@extends('partials.Layouts.master')
 
 @section('title', 'Material Requests | RideveConnect')
 @section('title-sub', 'Production')

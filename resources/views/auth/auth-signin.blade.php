@@ -1,4 +1,4 @@
-@extends('partials.layouts.master_auth')
+@extends('partials.Layouts.master_auth')
 
 @section('title', 'Sign In | RideveConnect')
 

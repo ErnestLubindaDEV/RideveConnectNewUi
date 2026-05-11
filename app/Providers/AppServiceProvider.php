@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\HRM;
 use Illuminate\Support\ServiceProvider;
+use App\Models\HRM as HrmModel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +23,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('partials.sidebar', function ($view) {
-        // Fetch the HRM record for the logged-in user
-        $employee = HRM::where('user_id', Auth::id())->first();
+  View::composer('partials.sidebar', function ($view) {
+    if (Auth::check()) {
+        // We use the alias 'HrmModel' to avoid the naming conflict
+        $employeeData = HrmModel::where('user_id', Auth::id())->first(); 
         
-        // Pass it to the sidebar view
-        $view->with('sidebarEmployee', $employee);
-    });
+        // Change 'sidebarEmployee' to 'employee' to match your Blade file
+        $view->with('employee', $employeeData);
     }
+});
+    }
+    
+    
 }

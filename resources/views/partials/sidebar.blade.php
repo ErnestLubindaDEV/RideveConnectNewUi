@@ -67,13 +67,13 @@
                         </a>
                     </li>
                      <li class="pe-slide-item">
-                        <a href="apps-ecommerce-cart" class="pe-nav-link">
+                        <a href="{{ route('applyforleave') }}" class="pe-nav-link">
                             Apply for Leave
                         </a>
                     </li>
                     
                     <li class="pe-slide-item">
-                    <a href="{{ route('leave.index', ['employee_id' => $sidebarEmployee->employee_id ?? '']) }}" class="pe-nav-link">
+                    <a href="{{ route('leave.index') }}" class="pe-nav-link">
     Leave Applications
 </a>
                     </li>
